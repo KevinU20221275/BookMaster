@@ -1,0 +1,119 @@
+CREATE DATABASE stationeryDistributor;
+
+USE stationeryDistributor;
+
+
+CREATE TABLE role (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    roleName VARCHAR(50) NOT NULL,
+    description VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Table for storing employees
+CREATE TABLE employee (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    firstName VARCHAR(100) NOT NULL,
+    lastName VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    phone VARCHAR(15) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    isEmployerEnabled BOOLEAN DEFAULT FALSE,
+    roleId INT,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (roleId) REFERENCES role(id)
+);
+
+
+CREATE TABLE customer (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    firstName VARCHAR(100) NOT NULL,
+    lastName VARCHAR(100) NOT NULL,
+    address VARCHAR(255),
+    email VARCHAR(100),
+    phone VARCHAR(15) NOT NULL,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE supplier (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    supplierName VARCHAR(100) NOT NULL,
+    email VARCHAR(100),
+    phone VARCHAR(15),
+    address VARCHAR(255),
+    city VARCHAR(50),
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE product (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    bookName VARCHAR(100) NOT NULL,   
+    stock INT NOT NULL,  
+	purchasePrice DECIMAL(10, 2),     
+    salePrice DECIMAL(10, 2),         
+    supplierId INT, 
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (supplierId) REFERENCES supplier(id)
+);
+
+-- Sales table
+CREATE TABLE sale (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date DATE NOT NULL,
+    employeeId INT, 
+    customerId INT,
+    total DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    FOREIGN KEY (employeeId) REFERENCES employee(id) ON DELETE CASCADE,
+    FOREIGN KEY (customerId) REFERENCES customer(id)
+);
+
+-- Sales Detail table
+CREATE TABLE salesDetail (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    saleId INT NOT NULL,
+    productId INT NOT NULL,
+    quantity INT NOT NULL,
+    unitPrice DECIMAL(10, 2) NOT NULL,
+    subtotal DECIMAL(10, 2) AS (quantity * unitprice) STORED,
+    FOREIGN KEY (saleId) REFERENCES sale(id) ON DELETE CASCADE,
+    FOREIGN KEY (productId) REFERENCES product(id)
+);
+
+
+-- Insert default roles
+INSERT INTO role (roleName, description) VALUES ('Administrator', 'System Administrator');
+INSERT INTO role (roleName, description) VALUES ('Manager', 'In charge of products, suppliers and customers')
+INSERT INTO role (roleName, description) VALUES ('Seller', 'In charge of recording sales')
+
+-- Insert default user (admin)
+INSERT INTO employee (firstName,lastName, username, email, phone, password, isEmployerEnabled, roleId) 
+VALUES ('Kevin', 'ANT','kevin01', '2022kevinmontano@gmail.com', 78734316, MD5('1234567'), true,1);
+
+-- insert default suppliers
+INSERT INTO supplier (supplierName, email, phone, address, city) VALUES
+('Editorial Alfa', 'alfa@example.com', '555123456', 'Av. Siempre Viva 742', 'Ciudad A'),
+('Librería Beta', 'contacto@beta.com', '555987654', 'Calle Falsa 123', 'Ciudad B'),
+('Distribuidora Gamma', 'ventas@gamma.net', '555111222', 'Av. Central 456', 'Ciudad C');
+
+-- insert default products
+INSERT INTO product (bookName, publisher, stock, purchasePrice, salePrice, supplierId) VALUES
+('Cien Años de Soledad', 'Editorial Alfa', 50, 10.00, 15.00, 1),
+('Don Quijote', 'Librería Beta', 30, 12.50, 18.00, 2),
+('El Principito', 'Distribuidora Gamma', 80, 8.00, 12.00, 3),
+('La Sombra del Viento', 'Editorial Alfa', 40, 11.00, 17.50, 1),
+('1984', 'Librería Beta', 25, 9.00, 14.00, 2);
+
+-- insert default customer
+INSERT INTO customer (firstName, lastName, address, email, phone) VALUES 
+('cliente', 'numero 1', 'Av 123', 'cliente1@gmail.com', '20000000')
+
+
+
+
