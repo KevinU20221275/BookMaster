@@ -22,32 +22,32 @@ BookMaster is a web-based inventory and sales management system designed for boo
 - **Font Awesome** (Icons)
 
 ## 🛠️ Folder Structure
-
+```
 BookMaster/ 
-  ├── app/ 
-  │   ├── controllers/ 
-  │   ├── Models/ 
-  |   ├── Services/ 
-  │   ├── Views/ 
-  |   |     ├── assets/ 
-  │   |     |     ├── css/ 
-  │   |     |     ├── fonts/
-  │   |     |     ├── img/ 
-  │   |     |     └── js/ 
-  |   |     ├── customer/
-  |   |     ├── employee/
-  |   |     ├── includes/
-  |   |     ├── product/
-  |   |     ├── role/
-  |   |     ├── sale/
-  |   |     ├── supplier/
+  ├── 📁 app/ 
+  │   ├── 📁 controllers/ 
+  │   ├── 📁 Models/ 
+  |   ├── 📁 Services/ # fetchs towards the controllers
+  │   ├── 📁 Views/ 
+  |   |     ├── 📁 assets/ 
+  │   |     |     ├── 📁 css/ 
+  │   |     |     ├── 📁 fonts/
+  │   |     |     ├── 📁 img/ 
+  │   |     |     └── 📁 js/ 
+  |   |     ├── 📁 customer/
+  |   |     ├── 📁 employee/
+  |   |     ├── 📁 includes/
+  |   |     ├── 📁 product/
+  |   |     ├── 📁 role/
+  |   |     ├── 📁 sale/
+  |   |     ├── 📁 supplier/
   |   ├── index.php (dashboard)
-  │   └── logout.php 
-  ├── conf/ 
-  │     ├── conf.php 
-  │     └── funciones.php 
+  │   └── logout.php # close session
+  ├── 📁 conf/ 
+  │     ├── conf.php # db connection
+  │     └── funciones.php # utitilies functions
   ├── index.php (login page)
-
+```
 
 ## 👤 Default Roles
 
