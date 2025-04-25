@@ -1,5 +1,7 @@
 # 📚 BookMaster
 
+<img src="docs/img/bookMasterDashboard.png" alt="user with Administrator role view" width="600"/>
+
 BookMaster is a web-based inventory and sales management system designed for bookstores or similar businesses. It allows administrators to manage products, employees, roles, and sales efficiently through an intuitive dashboard.
 
 > **📌 Note**: The interface is in **Spanish**, as this project was developed for a university course in a Spanish-speaking environment.
@@ -57,6 +59,8 @@ The application supports **three user roles** by default:
 - **Manager** – Limited access (sales, products, suppliers, customers)
 - **Seller** – Focused on sales operations (can create sales, add customers)
 
+<img src="docs/img/visitor.png" alt="user with Seller role view" width="700"/>
+
 > ⚠️ The role logic is enforced in both frontend and backend for security.
 
 ## 🌐 Live Demo
@@ -72,6 +76,9 @@ You can try the system with a limited access test account:
 - **Password**: `visitor`  
 
 This account has a **Seller** role, and can access the sales module and basic client functionality only.
+
+<img src="docs/img/visitor2.png" alt="sales view" width="600"/>
+
 
 > 🚨 For security reasons, please avoid entering real or sensitive data in the demo.
 
